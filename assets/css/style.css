@@ -1,0 +1,916 @@
+/*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+
+/* Defining global CSS variables under :root for reuse throughout the stylesheet */
+:root {
+  /**
+   * COLORS
+   */
+
+  /* Background colors */
+  --bg-white: hsla(0, 0%, 100%, 1); /* Pure white background */
+  --bg-gainsboro: hsla(154, 10%, 86%, 1); /* Light grayish background */
+  --bg-wild-blue-yonder: hsla(227, 39%, 75%, 1); /* Soft blue shade */
+  --bg-orange-crayola: hsla(18, 97%, 62%, 1); /* Vibrant orange tone */
+  --bg-roman-silver-alpha-30: hsla(
+    210,
+    9%,
+    57%,
+    0.3
+  ); /* Light gray-blue with transparency */
+
+  /* Text colors */
+  --text-orange-crayola: hsla(
+    18,
+    97%,
+    62%,
+    1
+  ); /* Same as bg-orange-crayola for text */
+  --text-blue-crayola: hsla(216, 98%, 52%, 1); /* Bright blue text */
+  --text-eerie-black: hsla(210, 11%, 15%, 1); /* Very dark gray */
+  --text-eerie-black-2: hsla(0, 0%, 7%, 1); /* Almost black */
+  --text-black: hsla(270, 100%, 0%, 1); /* Deep black color */
+
+  /* Border colors */
+  --border-eerie-black: hsla(0, 0%, 7%, 1); /* Border color: nearly black */
+
+  /**
+   * TYPOGRAPHY
+   */
+
+  /* Font families */
+  --fontFamily-inter: "Inter", sans-serif; /* Main sans-serif font */
+  --fontFamily-clashDisplay: "ClashDisplay", cursive; /* Display font for titles */
+
+  /* Font sizes in rem */
+  --fontSize-1: 6.2rem; /* Extra large font size */
+  --fontSize-2: 4.4rem;
+  --fontSize-3: 3.8rem;
+  --fontSize-4: 3.4rem;
+  --fontSize-5: 3rem;
+  --fontSize-6: 2.5rem;
+  --fontSize-7: 2rem;
+  --fontSize-8: 1.8rem;
+  --fontSize-9: 1.4rem;
+  --fontSize-10: 2.4rem;
+  --fontSize-11: 1.2rem;
+
+  /* Font weight */
+  --weight-semiBold: 600; /* Semi-bold text */
+
+  /**
+   * BOX SHADOW
+   */
+
+  --shadow-1: 0 4px 6px hsla(256, 100%, 9%, 0.1); /* Subtle box shadow */
+  --shadow-2: 4px 4px 0px hsla(0, 0%, 7%, 1); /* Strong offset shadow */
+  --shadow-3: 2px 2px 0px hsla(0, 0%, 7%, 1); /* Smaller offset shadow */
+
+  /**
+   * BORDER RADIUS
+   */
+
+  --radius-circle: 50%; /* Perfect circle border radius */
+
+  /**
+   * TRANSITION
+   */
+
+  --transition-1: 250ms ease; /* Quick transition */
+  --transition-2: 500ms ease; /* Slower transition */
+}
+
+/*-----------------------------------*\
+  #RESET
+\*-----------------------------------*/
+
+/* Resetting default margin, padding, and setting box-sizing to border-box */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Removing default list styles */
+li {
+  list-style: none;
+}
+
+/* Making these elements behave like block elements */
+a,
+img,
+span,
+input,
+button,
+ion-icon {
+  display: block;
+}
+
+/* Removing default link styles */
+a {
+  color: inherit; /* Inherit color from parent */
+  text-decoration: none; /* No underline */
+}
+
+/* Ensures images scale properly */
+img {
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Remove default styles for form elements and inherit font */
+input,
+button {
+  background: none;
+  border: none;
+  font: inherit;
+}
+
+/* Input fields take full width */
+input {
+  width: 100%;
+}
+
+/* Add pointer cursor to buttons */
+button {
+  cursor: pointer;
+}
+
+/* Normalize address font */
+address {
+  font-style: normal;
+}
+
+/* Disable pointer events on icons */
+ion-icon {
+  pointer-events: none;
+}
+
+/* Set base font and smooth scroll for HTML */
+html {
+  font-family: var(--fontFamily-inter); /* Base font */
+  font-size: 10px; /* 1rem = 10px */
+  scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+/* Set default body styles */
+body {
+  background-color: var(--bg-white); /* White background */
+  color: var(--text-eerie-black-2); /* Dark gray text */
+  font-size: 1.6rem; /* 16px */
+  line-height: 1.5; /* Comfortable line spacing */
+}
+
+/*-----------------------------------*\
+  #REUSED STYLE
+\*-----------------------------------*/
+
+/* Generic container class with horizontal padding */
+.container {
+  padding-inline: 16px; /* Left and right padding of 16px */
+}
+
+/* Hides shape elements by default and positions them absolutely when used */
+.shape {
+  display: none; /* Hidden by default */
+  position: absolute; /* Positioned relative to nearest positioned ancestor */
+}
+
+/* Title styling used for headings */
+.title {
+  font-family: var(
+    --fontFamily-clashDisplay
+  ); /* Uses display font for uniqueness */
+  font-weight: var(--weight-semiBold); /* Semi-bold weight */
+  line-height: 1.2; /* Reduced line height for tighter spacing */
+}
+
+/* Header level styles with custom font sizes */
+.h1 {
+  font-size: var(--fontSize-2); /* 4.4rem */
+}
+
+.h2 {
+  font-size: var(--fontSize-3); /* 3.8rem */
+}
+
+.h3 {
+  font-size: var(--fontSize-5); /* 3rem */
+}
+
+.h4 {
+  font-size: var(--fontSize-6); /* 2.5rem */
+}
+
+/* Reusable button base styles */
+.btn {
+  background-color: var(--bg-white); /* White background */
+  display: flex; /* Flexbox for icon + text alignment */
+  align-items: center; /* Vertically center content */
+  max-width: max-content; /* Width fits content */
+  min-width: max-content;
+  padding: 15px 30px; /* Padding inside the button */
+  border: 2px solid var(--border-eerie-black); /* Dark border */
+  box-shadow: var(--shadow-2); /* Bold offset shadow */
+  font-weight: var(--weight-semiBold); /* Semi-bold text */
+  transition: var(--transition-1); /* Smooth transition */
+}
+
+/* Remove shadow on hover or keyboard focus */
+.btn:is(:hover, :focus-visible) {
+  box-shadow: none; /* Remove box shadow on interaction */
+}
+
+/* Button modifier classes */
+.btn-primary,
+.btn-secondary {
+  gap: 5px; /* Space between text and icon */
+  text-transform: uppercase; /* Capital letters */
+}
+
+/* Rotate icons inside buttons */
+:is(.btn-primary, .btn-secondary) ion-icon {
+  font-size: 2rem; /* Icon size */
+  transform: rotate(-45deg); /* Rotate icon for style */
+}
+
+/* Change text color on hover/focus */
+.btn-primary:is(:hover, :focus-visible) {
+  color: var(--text-orange-crayola); /* Change to orange on hover */
+}
+
+/* Secondary button has orange background */
+.btn-secondary {
+  background-color: var(--bg-orange-crayola); /* Filled with orange */
+}
+
+/* Utility class for image containers */
+.img-holder {
+  aspect-ratio: var(--width) / var(--height); /* Responsive ratio */
+  background-color: var(--bg-gainsboro); /* Light gray fallback */
+  overflow: hidden; /* Prevent image overflow */
+}
+
+/* Makes image fill the container properly */
+.img-cover {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Maintain aspect ratio, cover area */
+}
+
+/* Common section padding */
+.section {
+  padding-block: 75px; /* Top and bottom padding */
+}
+
+/* Center-align text */
+.text-center {
+  text-align: center; /* Horizontal text alignment */
+}
+
+/* Space below section titles */
+.section-title {
+  margin-block-end: 45px; /* Bottom margin */
+}
+
+/* Centered button inside a product card */
+.product-btn {
+  position: absolute; /* Position relative to product card */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Exact centering */
+  font-size: var(--fontSize-9); /* 1.4rem */
+  gap: 8px; /* Space between text and icon */
+  opacity: 0; /* Hidden by default */
+}
+
+/* Smaller icon inside product button */
+.product-btn ion-icon {
+  font-size: 1.4rem; /* Icon size */
+}
+
+/* Show product button when hovering/focusing product card */
+.product-card:is(:hover, :focus-within) .product-btn {
+  opacity: 1; /* Reveal the button */
+}
+
+/* Banner image wrapper inside product card */
+.product-card .card-banner {
+  position: relative; /* For absolutely positioned button inside */
+}
+
+/* Content spacing inside product card */
+.product-card .card-content {
+  margin-block-start: 30px; /* Top margin to separate from image */
+}
+
+/* Underline title on hover/focus */
+.product-card .card-title:is(:hover, :focus-visible) {
+  text-decoration: underline; /* Visual feedback */
+}
+
+/* Style for product price */
+.product-card .price {
+  color: var(--text-orange-crayola); /* Orange price color */
+  font-family: var(--fontFamily-clashDisplay); /* Display font */
+  font-size: var(--fontSize-7); /* 2rem */
+  font-weight: var(--weight-semiBold); /* Semi-bold */
+  margin-block-start: 10px; /* Space above price */
+}
+
+/* Horizontal scrolling container */
+.has-scrollbar {
+  display: flex; /* Flex items horizontally */
+  align-items: center; /* Vertically center items */
+  gap: 40px; /* Space between items */
+  scroll-snap-type: inline mandatory; /* Snap to item when scrolling */
+  overflow-x: auto; /* Horizontal scroll */
+}
+
+/* Hide default scrollbar in WebKit browsers */
+.has-scrollbar::-webkit-scrollbar {
+  display: none; /* Cleaner appearance */
+}
+
+/* Each item snaps into view */
+.scrollbar-item {
+  min-width: 100%; /* Full width */
+  scroll-snap-align: start; /* Align to start when snapping */
+}
+
+/* Background image utility class */
+.has-bg-image {
+  background-repeat: no-repeat; /* No repeating pattern */
+  background-size: cover; /* Cover entire container */
+  background-position: center; /* Center the image */
+}
+
+/*-----------------------------------*\
+  #HEADER
+\*-----------------------------------*/
+
+/* Hide the button inside navbar by default */
+.navbar .btn {
+  display: none; /* Button is hidden */
+}
+
+/* Header styling for fixed positioning at the top of the page */
+.header {
+  position: fixed; /* Keeps the header fixed at the top */
+  top: 0; /* Top of the viewport */
+  left: 0; /* Left of the viewport */
+  width: 100%; /* Full width of the viewport */
+  padding-block: 25px; /* Vertical padding */
+  z-index: 4; /* Ensures header stays on top of other content */
+}
+
+/* When the header is active (on scroll), it has a background and shadow */
+.header.active {
+  background-color: var(--bg-white); /* White background */
+  box-shadow: var(--shadow-1); /* Subtle shadow below the header */
+}
+
+/* Flexbox container inside header for aligning elements */
+.header .container {
+  display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Space out the items */
+  align-items: center; /* Center align items vertically */
+}
+
+/* Button styling for opening navbar menu */
+.nav-open-btn {
+  font-size: 3.5rem; /* Larger button size */
+}
+
+/* Navbar positioning and animations */
+.navbar {
+  position: absolute; /* Absolute positioning within the header */
+  top: 85px; /* Place it below the header */
+  left: 0;
+  right: 0;
+  background-color: var(--bg-white); /* White background for the menu */
+  max-height: 0; /* Initially hidden */
+  overflow: hidden; /* Prevent overflow */
+  visibility: hidden; /* Hide the navbar */
+  transition: var(--transition-2); /* Smooth transition for opening */
+}
+
+/* When the navbar is active, it becomes visible and expands */
+.navbar.active {
+  max-height: 310px; /* Maximum height when visible */
+  visibility: visible; /* Make it visible */
+}
+
+/* Padding for the navbar list items */
+.navbar-list {
+  padding-block-start: 15px; /* Space at the top */
+}
+
+/* Navbar links and cart button span style */
+.navbar-link,
+.cart-btn .span {
+  font-weight: var(--weight-semiBold); /* Semi-bold text */
+  text-transform: uppercase; /* Uppercase text for uniformity */
+}
+
+/* Navbar link padding for clickable items */
+.navbar-link {
+  padding: 10px 20px; /* Horizontal padding */
+}
+
+/* Cart button inside header */
+.cart-btn {
+  display: flex; /* Flex container */
+  align-items: center; /* Align items vertically */
+  gap: 4px; /* Small gap between the items */
+  padding: 25px 20px; /* Padding inside the cart button */
+}
+
+/*-----------------------------------*\
+  #HERO
+\*-----------------------------------*/
+
+/* Hero section style with a background color and padding */
+.hero {
+  background-color: var(--bg-wild-blue-yonder); /* Soft blue background */
+  padding-block: 130px 75px; /* Top and bottom padding */
+}
+
+/* Grid layout for hero section */
+.hero .container {
+  display: grid; /* Use CSS Grid */
+  gap: 50px; /* Space between grid items */
+}
+
+/* Hero subtitle styling (smaller text beneath the main title) */
+.hero-subtitle {
+  font-size: var(--fontSize-4); /* 3.4rem font size */
+}
+
+/* Hero main title with spacing */
+.hero-title {
+  margin-block: 16px 30px; /* Vertical margin */
+}
+
+/* Hero text with a smaller font size and line height for readability */
+.hero-text {
+  font-size: var(--fontSize-8); /* 1.8rem font size */
+  line-height: 2.1; /* Increased line height for better readability */
+  margin-block-end: 16px; /* Bottom margin */
+}
+
+/* Hero banner, centers the image or content */
+.hero-banner {
+  max-width: max-content; /* Shrink to fit content */
+  margin-inline: auto; /* Center horizontally */
+}
+
+/*-----------------------------------*\
+  #FEATURE
+\*-----------------------------------*/
+
+/* Feature section styling with no padding at the top */
+.section.feature {
+  padding-block-start: 0; /* Remove top padding */
+}
+
+/* Grid layout for the feature list, with gaps between items */
+.feature-list {
+  display: grid; /* Grid display for items */
+  gap: 60px; /* 60px gap between grid items */
+  margin-block-end: 60px; /* Space below the feature list */
+}
+
+/* Center-align the button in the feature section */
+.feature .btn {
+  margin-inline: auto; /* Auto margin on left and right for centering */
+}
+
+/*-----------------------------------*\
+  #OFFER
+\*-----------------------------------*/
+
+/* Offer section with padding */
+.offer {
+  padding-block: 100px; /* Padding top and bottom */
+}
+
+/* Individual offer cards with a white background, border, and shadow */
+.offer-card {
+  background-color: var(--bg-white); /* White background */
+  border: 2px solid var(--border-eerie-black); /* Border around card */
+  box-shadow: var(--shadow-2); /* Shadow for the card */
+  padding: 80px 30px; /* Generous padding inside the card */
+}
+
+/* Larger font size for the card title */
+.offer-card .card-title {
+  font-size: var(--fontSize-1); /* 6.2rem */
+}
+
+/* Text inside the offer card with a smaller font size and line height */
+.offer-card .card-text {
+  font-size: var(--fontSize-8); /* 1.8rem */
+  line-height: 1.8; /* Increased line height for readability */
+  margin-block: 20px 45px; /* Margin around the card text */
+}
+
+/*-----------------------------------*\
+  #FOOTER
+\*-----------------------------------*/
+
+/* Footer container with a gray background and padding */
+.footer {
+  position: relative; /* Footer is positioned relative to its container */
+  background-color: var(--bg-gainsboro); /* Light gray background */
+  padding-block-start: 160px; /* Large top padding */
+}
+
+/* Top section of the footer, displayed as a grid */
+.footer-top {
+  display: grid; /* Grid layout */
+  gap: 30px; /* 30px gap between items */
+  font-size: var(--fontSize-8); /* Font size for footer items */
+  line-height: 1.7; /* Line height for text */
+  margin-block-end: 60px; /* Space below the top section */
+}
+
+/* Margin for the footer logo at the bottom */
+.footer .logo {
+  margin-block-end: 35px; /* Space below the logo */
+}
+
+/* Social media links displayed in a horizontal row */
+.social-list {
+  display: flex; /* Flexbox layout */
+  gap: 10px; /* 10px gap between items */
+  margin-block-start: 30px; /* Margin above the list */
+}
+
+/* Styling for each social media link icon */
+.social-link {
+  background-color: var(--bg-white); /* White background for icons */
+  width: 52px; /* Fixed width */
+  height: 52px; /* Fixed height */
+  display: grid; /* Center content using grid */
+  place-items: center; /* Center the icon inside the circle */
+  border-radius: var(--radius-circle); /* Circular shape */
+  border: 2px solid var(--border-eerie-black); /* Border around the icon */
+  box-shadow: var(--shadow-3); /* Light shadow effect */
+  transition: var(--transition-1); /* Smooth transition for hover effects */
+}
+
+/* Hover effect for social media icons */
+.social-link:is(:hover, :focus-visible) {
+  box-shadow: none; /* Remove shadow */
+  color: var(--text-orange-crayola); /* Change icon color */
+  transform: translateY(-2px); /* Slight lift effect */
+  border-color: currentColor; /* Change border color to the current icon color */
+}
+
+/* Footer list title (headers for lists) */
+.footer-list-title {
+  font-size: var(--fontSize-10); /* 2.4rem */
+  margin-block-end: 30px; /* Margin below the title */
+}
+
+/* Styling for the footer address text */
+address.footer-text {
+  margin-block-end: 15px; /* Bottom margin */
+}
+
+/* Styling for input fields in the footer */
+.input-field {
+  background-color: var(--bg-white); /* White background for input */
+  box-shadow: var(--shadow-2); /* Light shadow */
+  padding: 15px 30px; /* Padding inside input */
+  border: 2px solid var(--border-eerie-black); /* Dark border */
+  margin-block-end: 25px; /* Bottom margin */
+  outline: none; /* Remove focus outline */
+  transition: var(--transition-1); /* Smooth transition */
+}
+
+/* Focus effect on input fields */
+.input-field:focus {
+  box-shadow: none; /* Remove shadow on focus */
+}
+
+/* Styling for footer buttons */
+.footer .btn {
+  font-size: 1.6rem; /* Font size for footer buttons */
+  padding-inline: 40px; /* Horizontal padding */
+}
+
+/* Footer bottom section wrapper with a bottom border */
+.footer-bottom .wrapper {
+  border-block-end: 2px solid var(--border-eerie-black); /* Border at the bottom */
+  padding-block-end: 15px; /* Padding at the bottom */
+}
+
+/* Flex layout for footer links */
+.link-wrapper {
+  display: flex; /* Flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: center; /* Center links */
+  gap: 10px 30px; /* Gap between items (horizontal and vertical) */
+  margin-block-end: 15px; /* Margin below the section */
+}
+
+/* Footer bottom link style */
+.footer-bottom-link {
+  font-size: var(--fontSize-11); /* 1.2rem font size */
+  font-weight: var(--weight-semiBold); /* Semi-bold text */
+  text-transform: uppercase; /* Uppercase text */
+  transition: var(--transition-1); /* Smooth transition */
+}
+
+/* Hover effect for footer bottom links */
+.footer-bottom-link:is(:hover, :focus-visible) {
+  color: var(--text-orange-crayola); /* Change color on hover */
+}
+
+/* Copyright section at the bottom of the footer */
+.copyright {
+  padding-block: 30px; /* Padding top and bottom */
+  font-size: var(--fontSize-8); /* 1.8rem font size */
+  text-align: center; /* Center-align text */
+}
+
+/* Display shape-1 in the footer */
+.footer .shape-1 {
+  display: block; /* Display the shape */
+  top: 0; /* Position at the top */
+  right: 0; /* Position at the right */
+}
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for large than 575px screen
+ */
+
+@media (min-width: 575px) {
+  /**
+   * REUSED STYLE
+   */
+
+  .container {
+    max-width: 540px; /* Limiting the container width */
+    width: 100%; /* Full width of the screen */
+    margin-inline: auto; /* Centers the container horizontally */
+  }
+
+  /**
+   * OFFER
+   */
+
+  .offer-card {
+    padding-inline: 50px; /* Adds padding on the left and right of offer cards */
+  }
+}
+
+/**
+ * responsive for large than 768px screen
+ */
+
+@media (min-width: 768px) {
+  :root {
+    --fontSize-4: 4.2rem; /* Changes font size */
+    --fontSize-2: 7.8rem;
+    --fontSize-3: 6.6rem;
+  }
+
+  .container {
+    max-width: 720px; /* Increases container width */
+  }
+
+  .btn {
+    padding: 20px 50px; /* Increases button padding */
+  }
+
+  .section {
+    padding-block: 150px; /* Adds vertical padding to sections */
+  }
+
+  .scrollbar-item {
+    min-width: calc(50% - 20px); /* Changes width of scrollbar items */
+  }
+
+  .product-btn {
+    padding: 15px 30px; /* Adjusts padding on product buttons */
+  }
+
+  /* Hero Section Adjustments */
+  .hero {
+    padding-block: 200px 130px; /* Increases padding for the hero section */
+  }
+
+  .hero-text {
+    --fontSize-8: 2.2rem; /* Adjusts font size in hero text */
+    line-height: 1.8; /* Increases line height */
+  }
+
+  .hero .btn {
+    margin-block-start: 50px; /* Adds margin at the top of hero button */
+  }
+
+  /* Feature Section Grid Adjustment */
+  .feature-list {
+    grid-template-columns: 1fr 1fr; /* Switches to 2 columns layout */
+    column-gap: 24px; /* Adds gap between columns */
+  }
+
+  /* Offer Section Adjustments */
+  .offer-card {
+    padding-inline: 90px; /* Increases padding inside the offer cards */
+  }
+
+  /* Footer Section Grid Adjustments */
+  .footer-top {
+    grid-template-columns: 1fr 1fr; /* Changes footer top section to 2 columns */
+  }
+}
+
+/**
+ * responsive for large than 992px screen
+ */
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px; /* Increases container width */
+  }
+
+  /* Header Adjustments */
+  .header {
+    padding-block: 0; /* Removes vertical padding from the header */
+  }
+
+  .header .container {
+    border-block-end: 2px solid var(--border-eerie-black); /* Adds a bottom border */
+  }
+
+  .nav-open-btn {
+    display: none; /* Hides the navigation open button */
+  }
+
+  .navbar,
+  .navbar.active {
+    all: unset;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-list {
+    padding-block-start: 0;
+    display: flex;
+  }
+
+  .cart-btn {
+    border-inline-start: 2px solid var(--border-eerie-black);
+    padding-inline-start: 50px;
+    margin-inline-start: 20px;
+  }
+
+  /* Footer Adjustments */
+  .footer .shape-2 {
+    display: block;
+    bottom: 100px;
+    left: 0;
+  }
+}
+
+/**
+ * responsive for large than 1200px screen
+ */
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px; /* Increases container width for larger screens */
+  }
+
+  .scrollbar-item {
+    min-width: calc(33.33% - 40px); /* Adjusts scrollbar item width */
+  }
+
+  .shape {
+    display: block; /* Displays shapes for decoration */
+  }
+
+  /* Header Adjustments */
+  .cart-btn {
+    padding-block: 35px; /* Increases padding for cart button */
+  }
+
+  .navbar .btn {
+    display: block;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    margin-inline-start: 20px;
+  }
+
+  /* Hero Section Adjustments */
+  .hero {
+    position: relative;
+  }
+
+  .hero .container {
+    grid-template-columns: 1fr 1fr; /* Changes hero section layout to 2 columns */
+    align-items: center;
+  }
+
+  .hero-banner {
+    position: relative;
+    z-index: 1; /* Makes sure the banner stays on top */
+  }
+
+  .hero .shape-1 {
+    top: -140px;
+    left: -120px;
+    z-index: -1;
+  }
+
+  .hero .shape-2 {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Feature Section Adjustments */
+  .feature-list {
+    grid-template-columns: repeat(3, 1fr); /* Switches to a 3-column layout */
+  }
+
+  /* Offer Section Adjustments */
+  .offer {
+    padding-block: 200px; /* Adds more padding to the offer section */
+  }
+
+  .offer-card {
+    width: 40%; /* Reduces offer card width */
+  }
+
+  /* Footer Adjustments */
+  .footer-top {
+    grid-template-columns: repeat(3, 1fr); /* Changes footer to 3 columns */
+    margin-block-end: 160px; /* Adds more margin below footer top */
+  }
+
+  .footer-bottom .wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer .shape-2 {
+    bottom: 160px; /* Positions shape lower in footer */
+  }
+
+  .footer .shape-3 {
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+
+  .copyright {
+    text-align: left; /* Aligns copyright text to the left */
+    padding-block-end: 50px; /* Adds padding to the bottom of copyright */
+  }
+}
+
+/**
+ * responsive for large than 1400px screen
+ */
+
+@media (min-width: 1400px) {
+  /**
+   * CUSTOM PROPERTY
+   */
+
+  :root {
+    /**
+     * TYPOGRAPHY
+     */
+
+    /* font size */
+    --fontSize-2: 9rem;
+  }
+
+  /**
+   * REUSED STYLE
+   */
+
+  .container {
+    max-width: 1320px;
+  }
+
+  /**
+   * FOOTER
+   */
+
+  .footer-bottom-link {
+    font-size: 1.6rem;
+  }
+}
