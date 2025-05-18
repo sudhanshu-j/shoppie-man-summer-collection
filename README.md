@@ -8,7 +8,7 @@ A sleek, modern, and responsive e-commerce web design template tailored for a **
 ## 📸 Preview
 
 Check out the live demo of the **Shoppie - Man Summer Collection**:  
-[**Shoppie - Demo**](https://your-live-demo-link.com)
+[**Shoppie - Demo**](https://shoppie-man-summer-collection.netlify.app/)
 
 ---
 
